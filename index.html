@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soham Mehta - Builder. Founder. Operator.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111827;
+            --bg-card: #1f2937;
+            --border: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        .header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 80px;
+            align-items: start;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+        }
+
+        .name {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .contact {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .contact a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .contact a:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Photo - HIDDEN */
+        .photo-container {
+            position: relative;
+            visibility: hidden; /* Hides the element but keeps its space */
+            width: 0; /* Remove the width to reclaim space */
+        }
+
+        .photo {
+            display: none; /* Completely hides the image */
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px var(--accent-glow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 80px;
+            padding-bottom: 80px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .exp-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            margin-bottom: 32px;
+            align-items: start;
+        }
+
+        .exp-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .exp-company {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .exp-company a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .exp-company a:hover {
+            color: var(--accent);
+        }
+
+        .exp-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .exp-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+            background: var(--bg-card);
+            padding: 20px 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .exp-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.exp-title a:hover {
+    color: var(--accent);
+}
+
+        .achievements {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .achievements li {
+            padding-left: 0;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .achievements strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Quote */
+        .quote-section {
+            text-align: center;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .quote {
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: 400;
+            line-height: 1.4;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            font-style: italic;
+        }
+
+        .quote::before,
+        .quote::after {
+            content: '"';
+            color: var(--accent);
+            font-size: 4rem;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .quote::before {
+            top: -40px;
+            left: -60px;
+        }
+
+        .quote::after {
+            bottom: -80px;
+            right: -60px;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 80px 60px;
+            text-align: center;
+            margin: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: var(--text-primary);
+            padding: 20px 48px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px var(--accent-glow);
+            background: #4f46e5;
+        }
+
+        .badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .header {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+            
+            .name {
+                font-size: 3.5rem;
+            }
+            
+            .photo-container {
+                display: none; /* Hide completely on mobile */
+            }
+            
+            .exp-header {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .exp-meta {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-section {
+                padding: 60px 32px;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .quote {
+                font-size: 1.5rem;
+            }
+            
+            .contact {
+                justify-content: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">Soham Mehta</h1>
+                <p class="tagline">Built ₹2Mn revenue in 4 months. Profitable from Day 1. Building the next billion-dollar company.</p>
+                <div class="contact">
+                    <a href="mailto:sohammehta.e@gmail.com">sohammehta.e@gmail.com</a>
+                    <a href="tel:+919343584820">+91 9343584820</a>
+                    <a href="https://linkedin.com/in/sohamehta" target="_blank">LinkedIn</a>
+                    <a href="https://www.truva.in" target="_blank">Truva</a>
+                    <a href="https://www.goswift.in/" target="_blank">Swift</a>
+                </div>
+            </div>
+            <div class="photo-container">
+                <img src="https://i.ibb.co/pvTzd21j/sohamtruvaiit.jpg" alt="Soham Mehta" class="photo">
+            </div>
+        </header> 
+
+        <!-- Stats Section -->
+        <section class="section fade-in">
+            <h2 class="section-title">The Numbers Don't Lie</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">₹2Mn+</div>
+                    <div class="stat-label">Revenue in 4 months</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹45Cr+</div>
+                    <div class="stat-label">Pipeline built (Week 2)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Top VCs pitched (multiple term sheets)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5Mn+</div>
+                    <div class="stat-label">Linkedin</div>
+                </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; max-width: 800px;">
+                2x founder who actually ships. <br> Razorpay Rize Top 15 (backed by Peak XV & Lightspeed) → ₹3Mn+ resources + 10Mn+ customer base. <br>ICE 2025 finalist (only Indian team in the world). <br> WTFund Top 13% (Nikhil Kamath). <br> EF Round 2. <br> Top 0.2% AJVC. 
+                <br> Cross-functional operator across healthtech, e-com, D2C, proptech, B2B SaaS. <br> <br> I don't just talk about building - I build.
+            </p>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section fade-in">
+            <h2 class="section-title">What I've Built & Scaled</h2>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Founder & CEO, Aphrelle</div>
+                        <div class="exp-company">
+                            <a href="https://www.linkedin.com/company/aphrelle" target="_blank">BITS Pilani's fastest-scaling student startup</a>
+                        </div>
+                    </div>
+                    <div class="exp-meta">Apr 2024 – Present</div>
+                </div>
+                <p class="exp-description">₹2Mn+ revenue in 4 months, bootstrapped & profitable from Day 1</p>
+                <ul class="achievements">
+                    <li><strong>Profitable from Day 1</strong> — 38-42% margins, zero external capital. Received pre-seed offers at ₹5-10Cr valuation, secured multiple term sheets</li>
+                    <li><strong>Recruited & led 10+ batchmates</strong> across ops, growth & tech while full-time in college. Built SOPs for order fulfillment, inventory, campus distribution</li>
+                    <li><strong>Dominated India's biggest competitions (Total Earnings: ₹3.4L)</strong> — SEEP (BITS), EO GSEA, Blueprint (IIT Delhi - Top 3/10,000+ startups), Empresario (IIT KGP), Techfest (IIT Bombay)</li>
+                    <li><strong>WTFund Top 13% (Nikhil Kamath) + EF Round 2 + Top 0.2% AJVC + ICE 2025 Global Top 20</strong> (only Indian team)</li>
+                    <li><strong>Pivoted based on real feedback</strong> — 200+ customer interviews → D2C to tech-first marketplace model, rebuilt in 6 weeks</li>
+                    <li><strong>Built Personal Brand from scratch</strong> — drove 5Mn+ organic LinkedIn impressions, 40% revenue from word-of-mouth</li>
+                    <li><strong>Hustled 20+ top VCs</strong> — secured multiple term sheets from angels & institutional investors (Kalaari, Peak XV, Accel, Antler)</li>
+                    <li><strong>Recognised by UP Government</strong> — Startup India certified, DPIIT registered, ₹7.5L+ grants secured</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Acquisitions, Truva</div>
+                        <div class="exp-company">
+                            <a href="https://www.truva.in" target="_blank">Proptech (Stellaris-backed, $7M Series A)</a>
+                        </div>
+                    </div>
+                    <div class="exp-meta">Jul 2025 – Present</div>
+                </div>
+                <p class="exp-description">Handling key launches & closing high-ticket deals</p>
+                <ul class="achievements">
+                    <li><strong>Built ₹45CR pipeline in first 2 weeks</strong> — sourced and qualified 15 deals (₹2-9Cr tickets each)</li>
+                    <li><strong>Brought their biggest client</strong> — Bennett Coleman & Co. ($1.3Bn revenue, having top 10 secondary real estate in India). Cold outreach to signed LOI in 3 weeks</li>
+                    <li><strong>Built seller trust for high-ticket deals</strong> — financial models, market comps</li>
+                    <li><strong>Leading Truva Select Program</strong> — HNI exclusive community + growth strategy for premium segment</li>
+                    <li><strong>Working on core projects</strong> with COO & CEO on seller acquisition playbooks</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Founder's Office, Swift</div>
+                        <div class="exp-company">
+                            <a href="https://www.goswift.in/" target="_blank">E-com Tech Infra (Kalaari-backed, $2.2M Pre-Series A)</a>
+                        </div>
+                    </div>
+                    <div class="exp-meta">May 2025 – Jul 2025</div>
+                </div>
+                <p class="exp-description">Series A e-commerce platform (logistics, checkout, payments, analytics)</p>
+                <ul class="achievements">
+                    <li><strong>Solved 3 critical bottlenecks</strong> — customer success handoffs, ticket prioritization, courier visibility</li>
+                    <li><strong>Built ticket triage framework</strong> — escalation aging + seller sentiment analysis for high-risk flagging</li>
+                    <li><strong>Collaborated with tech</strong> — sentiment analysis pilots for auto-flagging at-risk sellers pre-churn</li>
+                    <li><strong>Designed internal workflows</strong> — real-time alerting for KAMs on courier/order delays via Slack</li>
+                    <li><strong>Led LinkedIn strategy</strong> — 350%+ profile visibility increase, 280%+ higher engagement vs competitors. Set brand foundation across website, social, leadership brand</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Chief of Staff, SparshaCare Innovations</div>
+                        <div class="exp-company">HealthTech (Pressure-sensor monitoring solutions)</div>
+                    </div>
+                    <div class="exp-meta">Aug 2024 – Mar 2025</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Concept to product-ready in 6 months</strong> — raised ₹10Mn+ govt & institutional grants (BIRAC)</li>
+                    <li><strong>Led business model + GTM</strong> — secured ₹2.5Mn+ B2B pre-orders pre-MVP (hospitals, eldercare facilities)</li>
+                    <li><strong>Full-stack execution</strong> — biz model, GTM, ops, fundraising, vendor negotiations, regulatory research</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Founder & CEO, Heetle</div>
+                        <div class="exp-company">Pre-incubated at BITS Pilani</div>
+                    </div>
+                    <div class="exp-meta">Jun 2023 – Mar 2024</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Secured ₹5L institutional support</strong> — pre-incubated at BITS Pilani</li>
+                    <li><strong>Built early product</strong> — pivoted after identifying regulatory hurdles. Key learning: speed matters, but founder-market fit matters more</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="quote-section fade-in">
+            <blockquote class="quote">
+                Most people want to sound smart. I just want to build fast and win.
+            </blockquote>
+        </section>
+
+        <!-- Education Section -->
+        <section class="section fade-in">
+            <h2 class="section-title">Where It Started</h2>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title"><a href="https://www.bits-pilani.ac.in/" target="_blank">BITS Pilani Hyderabad Campus</a></div>
+                        <div class="exp-company">Electrical & Electronics Engineering</div>
+                    </div>
+                    <div class="exp-meta">Aug 2023 – Apr 2026 (Early graduation: 3 years instead of 4)</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Only 1st-year to close national TV sponsors</strong> (Dept. of Sponsorship & Marketing)</li>
+                    <li><strong>Wall Street Club</strong> — generated ₹50K+ revenue solo in 1 day during fest</li>
+                    <li><strong>Youngest team leader (19)</strong> — leading BITS Pilani's team to the Finals of Smart India Hackathon 25' in December, World's Biggest Open Innovation Model</li>
+                    <li>E-Cell member before scaling Aphrelle full-time</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section fade-in">
+            <h2 class="cta-title">Ready to Build Something Massive?</h2>
+            <p class="cta-subtitle">
+                I'm not looking for a job. I'm looking for the founder who's building the next billion-dollar company.<br>
+                While I'll eventually start my own, right now I want to pour everything I've learned into building YOUR vision.<br>
+                Let's create something that matters - Together.
+            </p>
+            <a href="mailto:sohammehta.e@gmail.com" class="cta-button">
+                Let's Build Together
+            </a>
+            
+            <div class="badges">
+                <span class="badge">Building > Talking</span>
+                <span class="badge">Revenue > Vanity Metrics</span>
+                <span class="badge">Execution > Ideas</span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Add delay to stats for staggered animation
+        document.querySelectorAll('.stat-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 100}ms`;
+        });
+
+        // Smooth parallax effect for header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            if (header) {
+                header.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Remove tilt effect since photo is hidden
+    </script>
+</body>
+</html>
